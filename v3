@@ -166,3 +166,20 @@ local Leaderboard = Forsaken:CreateToggle({
       end
    end,
 })
+
+local Chat = Forsaken:CreateToggle({
+   Name = "Enable Chat",
+   CurrentValue = false,
+   Flag = "sixSeven", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      flags.chat = Value
+
+      if Value == true then
+         while flags.chat == true do
+            game.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat,true)
+            task.wait(1)
+         end
+      end
+   end,
+})
+
