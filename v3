@@ -314,3 +314,102 @@ local WalkSpeed = DOD:CreateSlider({
       end
    end,
 })
+
+--game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility"):InvokeServer(unpack(args))
+
+local AccurateAim = DOD:CreateToggle({
+   Name = "Aim Stuns Accurately",
+   CurrentValue = false,
+   Flag = "I:6711", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+   end,
+})
+
+local Button = DOD:CreateButton({
+   Name = "Use Ability: Punch",
+   Callback = function()
+   game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility"):InvokeServer("Punch")
+   if AccurateAim.CurrentValue == true then
+      local currentPos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+      local killer = workspace.GameAssets.Killer:FindFirstChildOfClass("Model")
+      local char = game.Players.LocalPlayer.Character
+
+      for i = 1,20 do
+         char.HumanoidRootPart.CFrame = killer.HumanoidRootPart.CFrame
+         task.wait(0.1)
+      end
+
+      char.HumanoidRootPart.CFrame = currentPos
+   end
+   end,
+})
+
+local Button = DOD:CreateButton({
+   Name = "Use Ability: Adrenaline",
+   Callback = function()
+   game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility"):InvokeServer("Adrenaline")
+   end,
+})
+
+local Button = DOD:CreateButton({
+   Name = "Use Ability: Caretaker",
+   Callback = function()
+   game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility"):InvokeServer("Caretaker")
+   end,
+})
+
+local Button = DOD:CreateButton({
+   Name = "Use Ability: Cloak",
+   Callback = function()
+   game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility"):InvokeServer("Cloak")
+   end,
+})
+
+local Button = DOD:CreateButton({
+   Name = "Use Ability: Block",
+   Callback = function()
+   game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility"):InvokeServer("Block")
+   end,
+})
+
+local Button = DOD:CreateButton({
+   Name = "Use Ability: Dash",
+   Callback = function()
+   game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility"):InvokeServer("Dash")
+   end,
+})
+
+local Button = DOD:CreateButton({
+   Name = "Use Ability: BonusPad(SPEED)",
+   Callback = function()
+   game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility"):InvokeServer("BonusPad")
+   end,
+})
+
+local Button = DOD:CreateButton({
+   Name = "Use Ability: Hotdog",
+   Callback = function()
+   game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility"):InvokeServer("Hotdog")
+   end,
+})
+
+local Button = DOD:CreateButton({
+   Name = "Use Ability: Revolver",
+   Callback = function()
+   game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility"):InvokeServer("Revolver")
+   end,
+})
+
+local Button = DOD:CreateButton({
+   Name = "Use Ability: Taunt",
+   Callback = function()
+   game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility"):InvokeServer("Taunt")
+   end,
+})
+
+local Button = DOD:CreateButton({
+   Name = "Use Ability: Banana",
+   Callback = function()
+   game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility"):InvokeServer("Banana")
+   end,
+})
