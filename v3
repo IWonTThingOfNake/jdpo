@@ -137,7 +137,7 @@ local SurvESP_Button = Forsaken:CreateToggle({
 
 local FOV_Forsaken = Forsaken:CreateSlider({
    Name = "FOV",
-   Range = {0, 50},
+   Range = {0, 2},
    Increment = 0.5,
    Suffix = "Field of View",
    CurrentValue = 1,
@@ -183,3 +183,108 @@ local Chat = Forsaken:CreateToggle({
    end,
 })
 
+local DOD = Window:CreateTab("Die of Death", 4483362458) -- Title, Image
+
+local CivilianESPColor = DOD:CreateColorPicker({
+    Name = "Civilian ESP Color",
+    Color = Color3.fromRGB(0,255,0),
+    Flag = "dod_nig", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+        
+    end
+})
+
+local CivilianESP = DOD:CreateToggle({
+   Name = "Civilian ESP",
+   CurrentValue = false,
+   Flag = "dodWillTouchMe", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      flags.dodCiv = Value
+
+      if Value == true then
+         while flags.dodCiv == true do
+            for i,v in pairs(workspace.GameAssets.Teams.Survivor:GetChildren()) do
+               esp(v,{Color = CivilianESPColor.Color}, true)
+            end
+            task.wait(1)
+         end
+      end
+   end,
+})
+
+local PredESPColor = DOD:CreateColorPicker({
+    Name = "Killer ESP Color",
+    Color = Color3.fromRGB(255,0,0),
+    Flag = "predatorDontTouchMe", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+        
+    end
+})
+
+local PredESP = DOD:CreateToggle({
+   Name = "Killer ESP",
+   CurrentValue = false,
+   Flag = "ITouchKids", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      flags.dodCiv = Value
+
+      if Value == true then
+         while flags.dodCiv == true do
+            for i,v in pairs(workspace.GameAssets.Teams.Killer:GetChildren()) do
+               esp(v,{Color = PredESPColor.Color}, true)
+            end
+            task.wait(1)
+         end
+      end
+   end,
+})
+
+local InfStam_DOD = DOD:CreateToggle({
+   Name = "Infinite Stamina",
+   CurrentValue = false,
+   Flag = "SevenSix", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      flags.infStam_dod = Value
+
+      if Value == true then
+         while flags.infStam_dod == true do
+            if game.Players.LocalPlayer.Character:GetAttribute("MaxStamina") then
+               game.Players.LocalPlayer.Character:SetAttribute("MaxStamina", 99999)
+            end
+            task.wait(1)
+         end
+      end
+   end,
+})
+
+local IgnoreSlowness = DOD:CreateToggle({
+   Name = "Ignore Slowness Debuffs",
+   CurrentValue = false,
+   Flag = "I:67", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      flags.ignSlow = Value
+
+      if Value == true then
+         while flags.ignSlow == true do
+            if game.Players.LocalPlayer.Character:GetAttribute("WalkSpeedModifier") then
+               game.Players.LocalPlayer.Character:SetAttribute("WalkSpeedModifier", 0)
+            end
+            task.wait(0.1)
+         end
+      end
+   end,
+})
+
+local SprintSpeed = DOD:CreateSlider({
+   Name = "SprintSpeed",
+   Range = {0, 50},
+   Increment = 1,
+   Suffix = "Sprint Speed",
+   CurrentValue = 26,
+   Flag = "S:1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+   if game.Players.LocalPlayer.Character:GetAttribute("SprintSpeed") then
+      game.Players.LocalPlayer.Character:SetAttribute("SprintSpeed", Value)
+   end
+   end,
+})
