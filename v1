@@ -37,8 +37,8 @@ local Window = Rayfield:CreateWindow({
    }
 })
 
-local function esp(obj,extra,b)
-   local s = b or true
+local function esp(obj, extra, b)
+   local s = b ~= false
    if s then
       if obj:FindFirstChild("_exploitHighlight") then
          obj:FindFirstChild("_exploitHighlight"):Destroy()
@@ -46,9 +46,11 @@ local function esp(obj,extra,b)
 
       local h = Instance.new("Highlight", obj)
       h.Name = "_exploitHighlight"
-      h.FillColor = extra.Color or Color.new(1,1,1)
+      h.FillColor = extra.Color or Color3.new(1,1,1)
    else
-      obj:FindFirstChild("_exploitHighlight"):Destroy()
+      if obj:FindFirstChild("_exploitHighlight") then
+         obj:FindFirstChild("_exploitHighlight"):Destroy()
+      end
    end
 end
 
@@ -118,7 +120,7 @@ local SurvESP_Color_Forsaken = Forsaken:CreateColorPicker({
 local SurvESP_Button = Forsaken:CreateToggle({
    Name = "Survivor ESP",
    CurrentValue = false,
-   Flag = "Toggle312391231", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Flag = "PLEASETOUCHMEOMG", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
    Callback = function(Value)
       flags.SurvESP_Forsaken = Value
 
