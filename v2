@@ -100,7 +100,7 @@ local KillerESP_Button = Forsaken:CreateToggle({
       if Value == true then
          while flags.KillerESP_Forsaken == true do
             for i,v in pairs(workspace.Players.Killers:GetChildren()) do
-               esp(v,{Color = KillerESP_Color_Forsaken}, true)
+               esp(v,{Color = KillerESP_Color_Forsaken.Color}, true)
             end
             task.wait(1)
          end
@@ -127,7 +127,7 @@ local SurvESP_Button = Forsaken:CreateToggle({
       if Value == true then
          while flags.SurvESP_Forsaken == true do
             for i,v in pairs(workspace.Players.Survivors:GetChildren()) do
-               esp(v,{Color = SurvESP_Color_Forsaken.Value}, true)
+               esp(v,{Color = SurvESP_Color_Forsaken.Color}, true)
             end
             task.wait(1)
          end
