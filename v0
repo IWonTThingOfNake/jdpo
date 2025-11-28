@@ -47,19 +47,31 @@ local Universal = Window:CreateTab("Universal", 4483362458)
      }
 
      local function getNextKiller()
-      for i,v in pairs(game.Players:GetPlayers()) do
-           v.leaderstats.KillerChance.Changed:Connect(function(v0)
-         stored.KillerChances[v.UserId] = v0
+    local highest = 0
+    local nextKiller = nil
 
-         if v0 > stored.KillerChances.Highest then
-           stored.KillerChances.Highest = v0
-          stored.Forsaken_NextKiller = v
-          end
+    for _, player in ipairs(game.Players:GetPlayers()) do
+        local ls = player:FindFirstChild("leaderstats")
+        if ls then
+            local chance = ls:FindFirstChild("KillerChance")
+            if chance then
+                local value = chance.Value
 
-           return stored.Forsaken_NextKiller
-       end
-     end
-     
+                stored.KillerChances[player.UserId] = value
+
+                if value > highest then
+                    highest = value
+                    nextKiller = player
+                end
+            end
+        end
+    end
+
+    stored.KillerChances.Highest = highest
+    stored.Forsaken_NextKiller = nextKiller
+    return nextKiller
+end
+
 local highlightNextForsaken = Forsaken:CreateToggle({
    Name = "Highlight Next Killer",
    CurrentValue = false,
