@@ -283,8 +283,34 @@ local SprintSpeed = DOD:CreateSlider({
    CurrentValue = 26,
    Flag = "S:1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
    Callback = function(Value)
-   if game.Players.LocalPlayer.Character:GetAttribute("SprintSpeed") then
-      game.Players.LocalPlayer.Character:SetAttribute("SprintSpeed", Value)
-   end
+      flags.BypassSprintSpeed = Value
+
+      while flags.BypassSprintSpeed == Value do
+         if game.Players.LocalPlayer.Character:GetAttribute("SprintSpeed") then
+            game.Players.LocalPlayer.Character:SetAttribute("SprintSpeed", Value)
+         end
+
+         task.wait(0.5)
+      end
+   end,
+})
+
+local WalkSpeed = DOD:CreateSlider({
+   Name = "WalkSpeed",
+   Range = {0, 50},
+   Increment = 1,
+   Suffix = "Walk Speed",
+   CurrentValue = 26,
+   Flag = "S:2", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      flags.BWS = Value
+
+      while flags.BWS == Value do
+         if game.Players.LocalPlayer.Character:GetAttribute("WalkSpeed") then
+            game.Players.LocalPlayer.Character:SetAttribute("WalkSpeed", Value)
+         end
+
+         task.wait(1)
+      end
    end,
 })
