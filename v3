@@ -300,7 +300,7 @@ local WalkSpeed = DOD:CreateSlider({
    Range = {0, 50},
    Increment = 1,
    Suffix = "Walk Speed",
-   CurrentValue = 26,
+   CurrentValue = 15,
    Flag = "S:2", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
    Callback = function(Value)
       flags.BWS = Value
@@ -317,99 +317,126 @@ local WalkSpeed = DOD:CreateSlider({
 
 --game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility"):InvokeServer(unpack(args))
 
-local AccurateAim = DOD:CreateToggle({
-   Name = "Aim Stuns Accurately",
-   CurrentValue = false,
-   Flag = "I:6711", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+local DOD_ABILITIES = {
+    "Adrenaline",
+    "Caretaker",
+    "Cloak",
+    "Block",
+    "Dash",
+    "BonusPad",
+    "Hotdog",
+    "Revolver",
+    "Taunt",
+    "Banana",
+      "Punch",
+}
+
+local UseAbility_DOD = game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility")
+
+for i, v in ipairs(DOD_ABILITIES) do
+    DOD:CreateButton({
+        Name = "Use Ability: " .. v,
+        Callback = function()
+            UseAbility_DOD:InvokeServer(v)
+        end
+    })
+end
+
+local Chasing = Window:CreateTab("Chasing", 4483362458) -- Title, Image
+
+local WalkSpeed = Chasing:CreateSlider({
+   Name = "WalkSpeed",
+   Range = {0, 50},
+   Increment = 1,
+   Suffix = "Walk Speed",
+   CurrentValue = 10,
+   Flag = "S:3", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
    Callback = function(Value)
-   end,
-})
+      flags.BWS_C = Value
 
-local Button = DOD:CreateButton({
-   Name = "Use Ability: Punch",
-   Callback = function()
-   game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility"):InvokeServer("Punch")
-   if AccurateAim.CurrentValue == true then
-      local currentPos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-      local killer = workspace.GameAssets.Killer:FindFirstChildOfClass("Model")
-      local char = game.Players.LocalPlayer.Character
+      while flags.BWS_C == Value do
+         if game.Players.LocalPlayer.Character:GetAttribute("Walkspeed") then
+            game.Players.LocalPlayer.Character:SetAttribute("Walkspeed", Value)
+         end
 
-      for i = 1,20 do
-         char.HumanoidRootPart.CFrame = killer.HumanoidRootPart.CFrame
-         task.wait(0.1)
+         task.wait(1)
       end
-
-      char.HumanoidRootPart.CFrame = currentPos
-   end
    end,
 })
 
-local Button = DOD:CreateButton({
-   Name = "Use Ability: Adrenaline",
-   Callback = function()
-   game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility"):InvokeServer("Adrenaline")
+local AntiRagdoll_Chasing = Chasing:CreateToggle({
+   Name = "Anti Ragdoll",
+   CurrentValue = false,
+   Flag = "I:1Neighbour", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      flags.AntiRagdoll_C = Value
+
+      if Value == true then
+         while flags.AntiRagdoll_C == true do
+            if game.Players.LocalPlayer.Character:GetAttribute("Ragdolled") then
+               game.Players.LocalPlayer.Character:SetAttribute("Ragdolled", false)
+            end
+            task.wait(0.1)
+         emd
+      end
    end,
 })
 
-local Button = DOD:CreateButton({
-   Name = "Use Ability: Caretaker",
-   Callback = function()
-   game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility"):InvokeServer("Caretaker")
+local ChasingESPKiller = Chasing:CreateColorPicker({
+    Name = "Killer ESP Color",
+    Color = Color3.fromRGB(255,0,0),
+    Flag = "ohShitMonkey", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+        
+    end
+})
+
+local esp_c = Chasing:CreateToggle({
+   Name = "Killer ESP",
+   CurrentValue = false,
+   Flag = "badqwdqq", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      flags.plrESP_C = Value
+
+      if Value == true then
+            while flags.plrESP_C == true do
+               for i,v in pairs(workspace.Characters:GetChildren()) do
+                  if v:FindFirstChild("_KillerModel") then
+                     esp(v,{Color = ChasingESPKiller.Color}, true)
+                  end
+               end
+               task.wait(1)
+            end
+      end
    end,
 })
 
-local Button = DOD:CreateButton({
-   Name = "Use Ability: Cloak",
-   Callback = function()
-   game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility"):InvokeServer("Cloak")
+local ChasingESPSurv = Chasing:CreateColorPicker({
+    Name = "Survivor ESP Color",
+    Color = Color3.fromRGB(255,0,0),
+    Flag = "ohShitMonkey2", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+        
+    end
+})
+
+local esp_c = Chasing:CreateToggle({
+   Name = "Survivor ESP",
+   CurrentValue = false,
+   Flag = "badqwdqq", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      flags.plrESP_C = Value
+
+      if Value == true then
+            while flags.plrESP_C == true do
+               for i,v in pairs(workspace.Characters:GetChildren()) do
+                  if not v:FindFirstChild("_KillerModel") then
+                     esp(v,{Color = ChasingESPSurv.Color}, true)
+                  end
+               end
+               task.wait(1)
+            end
+      end
    end,
 })
 
-local Button = DOD:CreateButton({
-   Name = "Use Ability: Block",
-   Callback = function()
-   game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility"):InvokeServer("Block")
-   end,
-})
-
-local Button = DOD:CreateButton({
-   Name = "Use Ability: Dash",
-   Callback = function()
-   game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility"):InvokeServer("Dash")
-   end,
-})
-
-local Button = DOD:CreateButton({
-   Name = "Use Ability: BonusPad(SPEED)",
-   Callback = function()
-   game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility"):InvokeServer("BonusPad")
-   end,
-})
-
-local Button = DOD:CreateButton({
-   Name = "Use Ability: Hotdog",
-   Callback = function()
-   game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility"):InvokeServer("Hotdog")
-   end,
-})
-
-local Button = DOD:CreateButton({
-   Name = "Use Ability: Revolver",
-   Callback = function()
-   game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility"):InvokeServer("Revolver")
-   end,
-})
-
-local Button = DOD:CreateButton({
-   Name = "Use Ability: Taunt",
-   Callback = function()
-   game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility"):InvokeServer("Taunt")
-   end,
-})
-
-local Button = DOD:CreateButton({
-   Name = "Use Ability: Banana",
-   Callback = function()
-   game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility"):InvokeServer("Banana")
-   end,
-})
