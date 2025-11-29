@@ -51,7 +51,13 @@ local function esp(obj, extra, b)
       h.FillColor = extra.Color or Color3.new(1,1,1)
 
       if obj:FindFirstChild("HumanoidRootPart") then
+          if obj.HumanoidRootPart:FindFirstChild("_exploitBill") then
+            obj.HumanoidRootPart:FindFirstChild("_exploitBill"):Destroy()
+          end
+
          local g = Instance.new("BillboardGui", obj.HumanoidRootPart)
+          g.Name = "_exploitBill"
+          g.Adornee = obj.HumanoidRootPart
          local t = Instance.new("TextLabel", g)
          t.Text = obj.Name
          t.TextColor3 = extra.Color or Color3.new(1,1,1)
