@@ -1,5 +1,7 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
+print("V4")
+
 local Window = Rayfield:CreateWindow({
    Name = "Exploit - #unknown#",
    Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
@@ -170,7 +172,7 @@ local Leaderboard = Forsaken:CreateToggle({
 local Chat = Forsaken:CreateToggle({
    Name = "Enable Chat",
    CurrentValue = false,
-   Flag = "sixSeven", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Flag = "meowCheese", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
    Callback = function(Value)
       flags.chat = Value
 
@@ -377,7 +379,7 @@ local AntiRagdoll_Chasing = Chasing:CreateToggle({
                game.Players.LocalPlayer.Character:SetAttribute("Ragdolled", false)
             end
             task.wait(0.1)
-         emd
+         end
       end
    end,
 })
