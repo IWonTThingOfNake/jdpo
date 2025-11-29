@@ -50,13 +50,15 @@ local function esp(obj, extra, b)
       h.Name = "_exploitHighlight"
       h.FillColor = extra.Color or Color3.new(1,1,1)
 
-      local g = Instance.new("BillboardGui", obj)
-      local t = Instance.new("TextLabel", g)
-      t.Text = obj.Name
-      t.TextColor3 = extra.Color or Color3.new(1,1,1)
+      if obj:FindFirstChild("HumanoidRootPart") then
+         local g = Instance.new("BillboardGui", obj.HumanoidRootPart)
+         local t = Instance.new("TextLabel", g)
+         t.Text = obj.Name
+         t.TextColor3 = extra.Color or Color3.new(1,1,1)
 
-      if extra["AddGui"] then
-         t.Text = t.Text..extra.AddGui
+         if extra["AddGui"] then
+            t.Text = t.Text..extra.AddGui
+         end
       end
    else
       if obj:FindFirstChild("_exploitHighlight") then
@@ -113,7 +115,7 @@ local KillerESP_Button = Forsaken:CreateToggle({
             for i,v in pairs(workspace.Players.Killers:GetChildren()) do
                esp(v,{Color = KillerESP_Color_Forsaken.Color, AddGui = " | "..game.Players:GetPlayerFromCharacter(v).Name}, true)
             end
-            task.wait(1)w
+            task.wait(1)
          end
       end
    end,
@@ -237,10 +239,10 @@ local PredESP = DOD:CreateToggle({
    CurrentValue = false,
    Flag = "ITouchKids", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
    Callback = function(Value)
-      flags.dodCiv = Value
+      flags.dodKiller = Value
 
       if Value == true then
-         while flags.dodCiv == true do
+         while flags.dodKiller == true do
             for i,v in pairs(workspace.GameAssets.Teams.Killer:GetChildren()) do
                esp(v,{Color = PredESPColor.Color, AddGui = " | "..game.Players:GetPlayerFromCharacter(v).Stats.EquippedKiller.Value}, true)
             end
@@ -449,10 +451,10 @@ local ChasingESPSurv = Chasing:CreateColorPicker({
     end
 })
 
-local esp_c = Chasing:CreateToggle({
+local esp_ch = Chasing:CreateToggle({
    Name = "Survivor ESP",
    CurrentValue = false,
-   Flag = "badqwdqq", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Flag = "monkeyblackness", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
    Callback = function(Value)
       flags.plrESP_C = Value
 
