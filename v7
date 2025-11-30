@@ -201,9 +201,9 @@ local GenESP_btn = v1:CreateToggle({
          while flags.genESP == true do
             for i,v in pairs(workspace.Map.Ingame:FindFirstChildOfClass("Model"):GetChildren()) do
                if v.Name == "Generator" then
-                  esp(v,{Color = GenESP.Color, AddGui = " | "..tostring(v.Progress.Value}.."%", true)
+                  esp(v,{Color = GenESP.Color, AddGui = " | "..tostring(v.Progress.Value).."%"}, true)
                 elseif v.Name == "FakeGenerator" then
-                  esp(v,{Color = FakeGenESP.Color, AddGui = " | "..tostring(v.Progress.Value}.."%", true)
+                  esp(v,{Color = FakeGenESP.Color, AddGui = " | "..tostring(v.Progress.Value).."%"}, true)
               end
             end
             task.wait(1)
