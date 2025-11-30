@@ -58,6 +58,7 @@ local function esp(obj, extra, b)
          local g = Instance.new("BillboardGui", obj.HumanoidRootPart)
           g.Name = "_exploitBill"
           g.Adornee = obj.HumanoidRootPart
+          g.AlwaysOnTop = true
          local t = Instance.new("TextLabel", g)
          t.Text = obj.Name
          t.TextColor3 = extra.Color or Color3.new(1,1,1)
@@ -89,8 +90,9 @@ local Button = Universal:CreateButton({
 })
 
 local Forsaken = Window:CreateTab("Forsaken", 4483362458) -- Title, Image
+local v0 = Forsaken:CreateSection("Main")
 
-local Slider = Forsaken:CreateSlider({
+local Slider = v0:CreateSlider({
    Name = "WalkSpeedMultiplier",
    Range = {0, 10},
    Increment = 0.5,
@@ -102,7 +104,21 @@ local Slider = Forsaken:CreateSlider({
    end,
 })
 
-local KillerESP_Color_Forsaken = Forsaken:CreateColorPicker({
+local FOV_Forsaken = v0:CreateSlider({
+   Name = "FOV",
+   Range = {0, 2},
+   Increment = 0.5,
+   Suffix = "Field of View",
+   CurrentValue = 1,
+   Flag = "S:123123123", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+   game.Players.LocalPlayer.Character.FOVMultipliers.Sprinting.Value = Value
+   end,
+})
+
+local v1 = Forsaken:CreateSection("ESP")
+
+local KillerESP_Color_Forsaken = v1:CreateColorPicker({
     Name = "Killer ESP Color",
     Color = Color3.fromRGB(255,0,0),
     Flag = "ColorPicker1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
@@ -111,7 +127,7 @@ local KillerESP_Color_Forsaken = Forsaken:CreateColorPicker({
     end
 })
 
-local KillerESP_Button = Forsaken:CreateToggle({
+local KillerESP_Button = v1:CreateToggle({
    Name = "Killer ESP",
    CurrentValue = false,
    Flag = "Toggle312391231", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
@@ -129,7 +145,7 @@ local KillerESP_Button = Forsaken:CreateToggle({
    end,
 })
 
-local SurvESP_Color_Forsaken = Forsaken:CreateColorPicker({
+local SurvESP_Color_Forsaken = v1:CreateColorPicker({
     Name = "Survivor ESP Color",
     Color = Color3.fromRGB(0,255,0),
     Flag = "ColorPicker312312311", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
@@ -138,7 +154,7 @@ local SurvESP_Color_Forsaken = Forsaken:CreateColorPicker({
     end
 })
 
-local SurvESP_Button = Forsaken:CreateToggle({
+local SurvESP_Button = v1:CreateToggle({
    Name = "Survivor ESP",
    CurrentValue = false,
    Flag = "PLEASETOUCHMEOMG", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
@@ -156,19 +172,47 @@ local SurvESP_Button = Forsaken:CreateToggle({
    end,
 })
 
-local FOV_Forsaken = Forsaken:CreateSlider({
-   Name = "FOV",
-   Range = {0, 2},
-   Increment = 0.5,
-   Suffix = "Field of View",
-   CurrentValue = 1,
-   Flag = "S:123123123", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+local GenESP = v1:CreateColorPicker({
+    Name = "Generator ESP Color",
+    Color = Color3.fromRGB(0,255,255),
+    Flag = "gen", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+        
+    end
+})
+
+local FakeGenESP = v1:CreateColorPicker({
+    Name = "Fake Generator ESP Color",
+    Color = Color3.fromRGB(255,255,0),
+    Flag = "fakegen", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+        
+    end
+})
+
+local GenESP_btn = v1:CreateToggle({
+   Name = "Generator ESP",
+   CurrentValue = false,
+   Flag = "genes", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
    Callback = function(Value)
-   game.Players.LocalPlayer.Character.FOVMultipliers.Sprinting.Value = Value
+      flags.genESP = Value
+
+      if Value == true then
+         while flags.genESP == true do
+            for i,v in pairs(workspace.Map.Ingame:FindFirstChildOfClass("Model"):GetChildren()) do
+               if v.Name == "Generator" then
+                  esp(v,{Color = GenESP.Color, AddGui = " | "..tostring(v.Progress.Value}.."%", true)
+                elseif v.Name == "FakeGenerator" then
+                  esp(v,{Color = FakeGenESP.Color, AddGui = " | "..tostring(v.Progress.Value}.."%", true)
+              end
+            end
+            task.wait(1)
+         end
+      end
    end,
 })
 
-local Leaderboard = Forsaken:CreateToggle({
+local Leaderboard = v0:CreateToggle({
    Name = "Leaderboard (When match starts)",
    CurrentValue = false,
    Flag = "sixSeven", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
@@ -188,7 +232,7 @@ local Leaderboard = Forsaken:CreateToggle({
    end,
 })
 
-local Chat = Forsaken:CreateToggle({
+local Chat = v0:CreateToggle({
    Name = "Enable Chat",
    CurrentValue = false,
    Flag = "meowCheese", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
@@ -205,8 +249,11 @@ local Chat = Forsaken:CreateToggle({
 })
 
 local DOD = Window:CreateTab("Die of Death", 4483362458) -- Title, Image
+local m0 = DOD:CreateSection("Main")
+local d0 = DOD:CreateSection("ESP")
+local a0 = DOD:CreateSection("Abilities")
 
-local CivilianESPColor = DOD:CreateColorPicker({
+local CivilianESPColor = d0:CreateColorPicker({
     Name = "Civilian ESP Color",
     Color = Color3.fromRGB(0,255,0),
     Flag = "dod_nig", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
@@ -215,7 +262,7 @@ local CivilianESPColor = DOD:CreateColorPicker({
     end
 })
 
-local CivilianESP = DOD:CreateToggle({
+local CivilianESP = d0:CreateToggle({
    Name = "Civilian ESP",
    CurrentValue = false,
    Flag = "dodWillTouchMe", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
@@ -233,7 +280,7 @@ local CivilianESP = DOD:CreateToggle({
    end,
 })
 
-local PredESPColor = DOD:CreateColorPicker({
+local PredESPColor = d0:CreateColorPicker({
     Name = "Killer ESP Color",
     Color = Color3.fromRGB(255,0,0),
     Flag = "predatorDontTouchMe", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
@@ -242,7 +289,7 @@ local PredESPColor = DOD:CreateColorPicker({
     end
 })
 
-local PredESP = DOD:CreateToggle({
+local PredESP = d0:CreateToggle({
    Name = "Killer ESP",
    CurrentValue = false,
    Flag = "ITouchKids", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
@@ -260,7 +307,7 @@ local PredESP = DOD:CreateToggle({
    end,
 })
 
-local InfStam_DOD = DOD:CreateToggle({
+local InfStam_DOD = m0:CreateToggle({
    Name = "Infinite Stamina",
    CurrentValue = false,
    Flag = "SevenSix", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
@@ -278,7 +325,7 @@ local InfStam_DOD = DOD:CreateToggle({
    end,
 })
 
-local IgnoreSlowness = DOD:CreateToggle({
+local IgnoreSlowness = m0:CreateToggle({
    Name = "Ignore Slowness Debuffs",
    CurrentValue = false,
    Flag = "I:67", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
@@ -296,7 +343,7 @@ local IgnoreSlowness = DOD:CreateToggle({
    end,
 })
 
-local SprintSpeed = DOD:CreateSlider({
+local SprintSpeed = m0:CreateSlider({
    Name = "SprintSpeed",
    Range = {0, 50},
    Increment = 1,
@@ -316,7 +363,7 @@ local SprintSpeed = DOD:CreateSlider({
    end,
 })
 
-local WalkSpeed = DOD:CreateSlider({
+local WalkSpeed = m0:CreateSlider({
    Name = "WalkSpeed",
    Range = {0, 50},
    Increment = 1,
@@ -336,7 +383,7 @@ local WalkSpeed = DOD:CreateSlider({
    end,
 })
 
-local jp = DOD:CreateSlider({
+local jp = m0:CreateSlider({
    Name = "JumpPower",
    Range = {0, 200},
    Increment = 25,
@@ -373,7 +420,7 @@ local DOD_ABILITIES = {
 local UseAbility_DOD = game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility")
 
 for i, v in ipairs(DOD_ABILITIES) do
-    DOD:CreateButton({
+    a0:CreateButton({
         Name = "Use Ability: " .. v,
         Callback = function()
             UseAbility_DOD:InvokeServer(v)
@@ -382,8 +429,10 @@ for i, v in ipairs(DOD_ABILITIES) do
 end
 
 local Chasing = Window:CreateTab("Chasing", 4483362458) -- Title, Image
+local Section_C = Chasing:CreateSection("Main")
+local Section_C_E = Tab:CreateSection("ESP")
 
-local WalkSpeed = Chasing:CreateSlider({
+local WalkSpeed = Section_C:CreateSlider({
    Name = "WalkSpeed",
    Range = {0, 50},
    Increment = 1,
@@ -398,12 +447,12 @@ local WalkSpeed = Chasing:CreateSlider({
             game.Players.LocalPlayer.Character:SetAttribute("Walkspeed", Value)
          end
 
-         task.wait(1)
+         task.wait(0.1)
       end
    end,
 })
 
-local AntiRagdoll_Chasing = Chasing:CreateToggle({
+local AntiRagdoll_Chasing = Section_C:CreateToggle({
    Name = "Anti Ragdoll",
    CurrentValue = false,
    Flag = "I:1Neighbour", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
@@ -421,7 +470,7 @@ local AntiRagdoll_Chasing = Chasing:CreateToggle({
    end,
 })
 
-local ChasingESPKiller = Chasing:CreateColorPicker({
+local ChasingESPKiller = Section_C_E:CreateColorPicker({
     Name = "Killer ESP Color",
     Color = Color3.fromRGB(255,0,0),
     Flag = "ohShitMonkey", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
@@ -430,7 +479,7 @@ local ChasingESPKiller = Chasing:CreateColorPicker({
     end
 })
 
-local esp_c = Chasing:CreateToggle({
+local esp_c = Section_C_E:CreateToggle({
    Name = "Killer ESP",
    CurrentValue = false,
    Flag = "badqwdqq", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
@@ -450,7 +499,7 @@ local esp_c = Chasing:CreateToggle({
    end,
 })
 
-local ChasingESPSurv = Chasing:CreateColorPicker({
+local ChasingESPSurv = Section_C_E:CreateColorPicker({
     Name = "Survivor ESP Color",
     Color = Color3.fromRGB(255,0,0),
     Flag = "ohShitMonkey2", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
@@ -459,7 +508,7 @@ local ChasingESPSurv = Chasing:CreateColorPicker({
     end
 })
 
-local esp_ch = Chasing:CreateToggle({
+local esp_ch = Section_C_E:CreateToggle({
    Name = "Survivor ESP",
    CurrentValue = false,
    Flag = "monkeyblackness", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
