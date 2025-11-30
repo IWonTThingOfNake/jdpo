@@ -1,6 +1,9 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
                                          print("V7")
+print("ts is updated 1 millionth time")
+print("ur getting exploits lol")
+print("keowmeoekeodnfg")
 
 local Window = Rayfield:CreateWindow({
    Name = "Exploit - #unknown#",
@@ -430,7 +433,7 @@ end
 
 local Chasing = Window:CreateTab("Chasing", 4483362458) -- Title, Image
 local Section_C = Chasing:CreateSection("Main")
-local Section_C_E = Tab:CreateSection("ESP")
+local Section_C_E = Chasing:CreateSection("ESP")
 
 local WalkSpeed = Section_C:CreateSlider({
    Name = "WalkSpeed",
