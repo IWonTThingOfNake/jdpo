@@ -12,13 +12,6 @@ print("Added Lori's Nightmare: Update")
 print("please just work")
 print("Github update you mf")
 
-Rayfield:Notify({
-   Title = "Loading: Exploit - #unknown#",
-   Content = "if you don't get it then that means the version your using is errored, try again a few hours/minutes later.",
-   Duration = 6.5,
-   Image = 4483362458,
-})
-
 local Window = Rayfield:CreateWindow({
    Name = "Exploit - #unknown#",
    Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
@@ -54,13 +47,6 @@ local Window = Rayfield:CreateWindow({
       GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
       Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
    }
-})
-
-Rayfield:Notify({
-   Title = "Rayfield has loaded, should work",
-   Content = "wait for final confirmation",
-   Duration = 6.5,
-   Image = 4483362458,
 })
 
 local function esp(obj, extra, b)
@@ -704,10 +690,3 @@ local esp_c = LoriNightmare:CreateToggle({
 })
 
 print("Success!")
-
-Rayfield:Notify({
-   Title = "Exploits loaded!",
-   Content = "Yay",
-   Duration = 6.5,
-   Image = 4483362458,
-})
