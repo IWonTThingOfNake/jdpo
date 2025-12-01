@@ -1,40 +1,6 @@
+print("You activated exploit file: Work")
+
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
-
-                                         print("V7")
-print("ts is updated 1 millionth time")
-print("ur getting exploits lol")
-print("keowmeoekeodnfg")
-print("Fixed")
-
-print("Fixed again")
-
-print("Added Lori's Nightmare: Update")
-print("please just work")
-print("Github update you mf")
-
-print("Doing these prints so github updates it")
-print("Doing these prints so github updates it")
-print("Doing these prints so github updates it")
-print("Doing these prints so github updates it")
-print("Doing these prints so github updates it")
-print("Doing these prints so github updates it")
-print("Doing these prints so github updates it")
-print("Doing these prints so github updates it")
-print("Doing these prints so github updates it")
-print("Doing these prints so github updates it")
-print("Doing these prints so github updates it")
-print("Doing these prints so github updates it")
-print("Doing these prints so github updates it")
-print("Doing these prints so github updates it")
-print("Doing these prints so github updates it")
-print("Doing these prints so github updates it")
-print("Doing these prints so github updates it")
-print("Doing these prints so github updates it")
-print("Doing these prints so github updates it")
-print("Doing these prints so github updates it")
-print("Doing these prints so github updates it")
-print("Doing these prints so github updates it")
-print("Doing these prints so github updates it")
 
 local Window = Rayfield:CreateWindow({
    Name = "Exploit - #unknown#",
@@ -592,10 +558,10 @@ local esp_ch = Chasing:CreateToggle({
    CurrentValue = false,
    Flag = "monkeyblackness", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
    Callback = function(Value)
-      flags.plrESP_C = Value
+      flags.plrESP_Ch = Value
 
       if Value == true then
-            while flags.plrESP_C == true do
+            while flags.plrESP_Ch == true do
                for i,v in pairs(workspace.Characters:GetChildren()) do
                   if not v:FindFirstChild("_KillerModel") then
                      esp(v,{Color = ChasingESPSurv.Color}, true)
@@ -674,7 +640,7 @@ local esp_c = LoriNightmare:CreateToggle({
                for i,v in pairs(game.Players:GetPlayers()) do
                   if v.Character:FindFirstChild("Highlight") then v.Character.Highlight:Destroy() end
                   if v.Character:GetAttribute("Monster") then
-                     esp(v,{Color = LNKillerColor.Color}, true)
+                     esp(v.Character,{Color = LNKillerColor.Color}, true)
                   end
                end
                task.wait(1)
@@ -704,7 +670,7 @@ local esp_c = LoriNightmare:CreateToggle({
                for i,v in pairs(game.Players:GetPlayers()) do
                   if not v.Character:GetAttribute("Monster") then
                       if v.Character:FindFirstChild("Highlight") then v.Character.Highlight:Destroy() end
-                     esp(v,{Color = LNSurvColor.Color}, true)
+                     esp(v.Character,{Color = LNSurvColor.Color}, true)
                   end
                end
                task.wait(1)
