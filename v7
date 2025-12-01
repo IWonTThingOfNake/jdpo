@@ -4,6 +4,13 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 print("ts is updated 1 millionth time")
 print("ur getting exploits lol")
 print("keowmeoekeodnfg")
+print("Fixed")
+
+print("Fixed again")
+
+print("Added Lori's Nightmare: Update")
+print("please just work")
+print("Github update you mf")
 
 Rayfield:Notify({
    Title = "Loading: Exploit - #unknown#",
@@ -632,12 +639,6 @@ LoriNightmare:CreateToggle({
     end
   end,
 })
-
---local args = {
-	workspace:WaitForChild("Map"):WaitForChild("Hotel"):WaitForChild("Machines"):WaitForChild("VHStv")
-}
-game:GetService("ReplicatedStorage"):WaitForChild("Util"):WaitForChild("Net"):WaitForChild("RE/MachineMinigameClicked"):FireServer(unpack(args))
-
 
 
 LoriNightmare:CreateSection("ESP")
