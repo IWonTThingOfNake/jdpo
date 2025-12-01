@@ -5,6 +5,13 @@ print("ts is updated 1 millionth time")
 print("ur getting exploits lol")
 print("keowmeoekeodnfg")
 
+Rayfield:Notify({
+   Title = "Loading: Exploit - #unknown#",
+   Content = "if you don't get it then that means the version your using is errored, try again a few hours/minutes later.",
+   Duration = 6.5,
+   Image = 4483362458,
+})
+
 local Window = Rayfield:CreateWindow({
    Name = "Exploit - #unknown#",
    Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
@@ -40,6 +47,13 @@ local Window = Rayfield:CreateWindow({
       GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
       Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
    }
+})
+
+Rayfield:Notify({
+   Title = "Rayfield has loaded, should work",
+   Content = "wait for final confirmation",
+   Duration = 6.5,
+   Image = 4483362458,
 })
 
 local function esp(obj, extra, b)
@@ -90,6 +104,18 @@ local Button = Universal:CreateButton({
    Callback = function()
    Rayfield:Destroy()
    end,
+})
+
+Universal:CreateButton({
+  Name = "Noclip",
+  Callback = function()
+    Rayfield:Notify({
+   Title = "This exploit isnt finished yet!",
+   Content = "Wont work srry.",
+   Duration = 6.5,
+   Image = 4483362458,
+})
+  end,
 })
 
 local Forsaken = Window:CreateTab("Forsaken", 4483362458) -- Title, Image
@@ -463,10 +489,10 @@ for i, v in ipairs(DOD_ABILITIES) do
 end
 
 local Chasing = Window:CreateTab("Chasing", 4483362458) -- Title, Image
-local Section_C = Chasing:CreateSection("Main")
-local Section_C_E = Chasing:CreateSection("ESP")
 
-local WalkSpeed = Section_C:CreateSlider({
+local Section_C = Chasing:CreateSection("Main")
+
+local WalkSpeed = Chasing:CreateSlider({
    Name = "WalkSpeed",
    Range = {0, 50},
    Increment = 1,
@@ -486,7 +512,7 @@ local WalkSpeed = Section_C:CreateSlider({
    end,
 })
 
-local AntiRagdoll_Chasing = Section_C:CreateToggle({
+local AntiRagdoll_Chasing = Chasing:CreateToggle({
    Name = "Anti Ragdoll",
    CurrentValue = false,
    Flag = "I:1Neighbour", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
@@ -504,7 +530,9 @@ local AntiRagdoll_Chasing = Section_C:CreateToggle({
    end,
 })
 
-local ChasingESPKiller = Section_C_E:CreateColorPicker({
+local Section_C_E = Chasing:CreateSection("ESP")
+
+local ChasingESPKiller = Chasing:CreateColorPicker({
     Name = "Killer ESP Color",
     Color = Color3.fromRGB(255,0,0),
     Flag = "ohShitMonkey", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
@@ -513,7 +541,7 @@ local ChasingESPKiller = Section_C_E:CreateColorPicker({
     end
 })
 
-local esp_c = Section_C_E:CreateToggle({
+local esp_c = Chasing:CreateToggle({
    Name = "Killer ESP",
    CurrentValue = false,
    Flag = "badqwdqq", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
@@ -533,7 +561,7 @@ local esp_c = Section_C_E:CreateToggle({
    end,
 })
 
-local ChasingESPSurv = Section_C_E:CreateColorPicker({
+local ChasingESPSurv = Chasing:CreateColorPicker({
     Name = "Survivor ESP Color",
     Color = Color3.fromRGB(255,0,0),
     Flag = "ohShitMonkey2", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
@@ -542,7 +570,7 @@ local ChasingESPSurv = Section_C_E:CreateColorPicker({
     end
 })
 
-local esp_ch = Section_C_E:CreateToggle({
+local esp_ch = Chasing:CreateToggle({
    Name = "Survivor ESP",
    CurrentValue = false,
    Flag = "monkeyblackness", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
@@ -562,4 +590,123 @@ local esp_ch = Section_C_E:CreateToggle({
    end,
 })
 
+local LoriNightmare = Window:CreateTab("Lori's Nightmare", 4483362458) -- Title, Image
+
+LoriNightmare:CreateSection("Main")
+
+LoriNightmare:CreateToggle({
+  Name = "Self-Revive upon Knocking",
+  CurrentValue = false,
+  Flag = "jdpoqjdpoqjdpoqwjdwq",
+  Callback = function(Value)
+    flags.SelfRevive = Value
+
+    if Value == true then
+      while flags.SelfRevive == true do
+        game:GetService("ReplicatedStorage"):WaitForChild("Util"):WaitForChild("Net"):WaitForChild("RE/ActivateCampingProtection"):FireServer()
+        task.wait(0.75)
+      end
+    end
+  end,
+})
+
+LoriNightmare:CreateToggle({
+  Name = "Auto VHS Completion",
+  CurrentValue = false,
+  Flag = "ssss",
+  Callback = function(Value)
+    flags.AutoVHS = Value
+
+    if Value == true then
+      while flags.AutoVHS == true do
+        if #game.Players.LocalPlayer.PlayerGui.Minigame.Frame:GetChildren() > 0 then
+          for i,v in pairs(workspace.Map:GetDescendants()) do
+            if v:IsA("Model") and v.Name == "VHStv" then
+              game:GetService("ReplicatedStorage"):WaitForChild("Util"):WaitForChild("Net"):WaitForChild("RE/MachineMinigameClicked"):FireServer(v)
+            end
+          end
+        end
+        task.wait(0.25)
+      end
+     end
+    end
+  end,
+})
+
+--local args = {
+	workspace:WaitForChild("Map"):WaitForChild("Hotel"):WaitForChild("Machines"):WaitForChild("VHStv")
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Util"):WaitForChild("Net"):WaitForChild("RE/MachineMinigameClicked"):FireServer(unpack(args))
+
+
+
+LoriNightmare:CreateSection("ESP")
+
+local LNKillerColor = LoriNightmare:CreateColorPicker({
+    Name = "Killer ESP Color",
+    Color = Color3.fromRGB(255,0,0),
+    Flag = "sukaBlyat", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+        
+    end
+})
+
+local esp_c = LoriNightmare:CreateToggle({
+   Name = "Killer ESP",
+   CurrentValue = false,
+   Flag = "SukaBlyaaddd", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      flags.plrESP_ln = Value
+
+      if Value == true then
+            while flags.plrESP_ln == true do
+               for i,v in pairs(game.Players:GetPlayers()) do
+                  if v.Character:FindFirstChild("Highlight") then v.Character.Highlight:Destroy() end
+                  if v.Character:GetAttribute("Monster") then
+                     esp(v.Color,{Color = LNKillerColor.Color}, true)
+                  end
+               end
+               task.wait(1)
+            end
+      end
+   end,
+})
+
+local LNSurvColor = LoriNightmare:CreateColorPicker({
+    Name = "Survivor ESP Color",
+    Color = Color3.fromRGB(0,255,0),
+    Flag = "alrightDaddy", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+        
+    end
+})
+
+local esp_c = LoriNightmare:CreateToggle({
+   Name = "Survivor ESP",
+   CurrentValue = false,
+   Flag = "fuckMeDaddyOhYes", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      flags.plrESP_lnSurv = Value
+
+      if Value == true then
+            while flags.plrESP_lnSurv == true do
+               for i,v in pairs(game.Players:GetPlayers()) do
+                  if not v.Character:GetAttribute("Monster") then
+                      if v.Character:FindFirstChild("Highlight") then v.Character.Highlight:Destroy() end
+                     esp(v.Color,{Color = LNSurvColor.Color}, true)
+                  end
+               end
+               task.wait(1)
+            end
+      end
+   end,
+})
+
 print("Success!")
+
+Rayfield:Notify({
+   Title = "Exploits loaded!",
+   Content = "Yay",
+   Duration = 6.5,
+   Image = 4483362458,
+})
