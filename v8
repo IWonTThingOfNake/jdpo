@@ -1,0 +1,713 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+                                         print("V7")
+print("ts is updated 1 millionth time")
+print("ur getting exploits lol")
+print("keowmeoekeodnfg")
+print("Fixed")
+
+print("Fixed again")
+
+print("Added Lori's Nightmare: Update")
+print("please just work")
+print("Github update you mf")
+
+Rayfield:Notify({
+   Title = "Loading: Exploit - #unknown#",
+   Content = "if you don't get it then that means the version your using is errored, try again a few hours/minutes later.",
+   Duration = 6.5,
+   Image = 4483362458,
+})
+
+local Window = Rayfield:CreateWindow({
+   Name = "Exploit - #unknown#",
+   Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
+   LoadingTitle = "Exploit - #unknown#",
+   LoadingSubtitle = "by #unknown#",
+   ShowText = "Rayfield", -- for mobile users to unhide rayfield, change if you'd like
+   Theme = "Default", -- Check https://docs.sirius.menu/rayfield/configuration/themes
+
+   ToggleUIKeybind = "K", -- The keybind to toggle the UI visibility (string like "K" or Enum.KeyCode)
+
+   DisableRayfieldPrompts = false,
+   DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
+
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "Big Hub"
+   },
+
+   Discord = {
+      Enabled = false, -- Prompt the user to join your Discord server if their executor supports it
+      Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ ABCD would be ABCD
+      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+   },
+
+   KeySystem = false, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "Untitled",
+      Subtitle = "Key System",
+      Note = "No method of obtaining the key is provided", -- Use this to tell the user how to get a key
+      FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+   }
+})
+
+Rayfield:Notify({
+   Title = "Rayfield has loaded, should work",
+   Content = "wait for final confirmation",
+   Duration = 6.5,
+   Image = 4483362458,
+})
+
+local function esp(obj, extra, b)
+   local s = b ~= false
+   if s then
+      if obj:FindFirstChild("_exploitHighlight") then
+         obj:FindFirstChild("_exploitHighlight"):Destroy()
+      end
+
+      local h = Instance.new("Highlight", obj)
+      h.Name = "_exploitHighlight"
+      h.FillColor = extra.Color or Color3.new(1,1,1)
+
+      if obj:FindFirstChild("HumanoidRootPart") then
+          if obj.HumanoidRootPart:FindFirstChild("_exploitBill") then
+            obj.HumanoidRootPart:FindFirstChild("_exploitBill"):Destroy()
+          end
+
+         local g = Instance.new("BillboardGui", obj.HumanoidRootPart)
+          g.Name = "_exploitBill"
+          g.Adornee = obj.HumanoidRootPart
+          g.AlwaysOnTop = true
+         local t = Instance.new("TextLabel", g)
+         t.Text = obj.Name
+         t.TextColor3 = extra.Color or Color3.new(1,1,1)
+          t.BackgroundTransparency = 1
+          t.TextScaled = true
+
+         if extra["AddGui"] then
+            t.Text = t.Text..extra.AddGui
+         end
+      end
+   else
+      if obj:FindFirstChild("_exploitHighlight") then
+         obj:FindFirstChild("_exploitHighlight"):Destroy()
+      end
+   end
+end
+
+local flags = {
+
+}
+
+local Universal = Window:CreateTab("Universal", 4483362458) -- Title, Image
+
+local Button = Universal:CreateButton({
+   Name = "Destroy Rayfield",
+   Callback = function()
+   Rayfield:Destroy()
+   end,
+})
+
+Universal:CreateButton({
+  Name = "Noclip",
+  Callback = function()
+    Rayfield:Notify({
+   Title = "This exploit isnt finished yet!",
+   Content = "Wont work srry.",
+   Duration = 6.5,
+   Image = 4483362458,
+})
+  end,
+})
+
+local Forsaken = Window:CreateTab("Forsaken", 4483362458) -- Title, Image
+local v0 = Forsaken:CreateSection("Main")
+
+local Slider = Forsaken:CreateSlider({
+   Name = "WalkSpeedMultiplier",
+   Range = {0, 10},
+   Increment = 0.5,
+   Suffix = "WalkSpeedMultiplier",
+   CurrentValue = 1,
+   Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      game.Players.LocalPlayer.Character.SpeedMultipliers.Sprinting.Value = Value
+   end,
+})
+
+local FOV_Forsaken = Forsaken:CreateSlider({
+   Name = "FOV",
+   Range = {0, 2},
+   Increment = 0.5,
+   Suffix = "Field of View",
+   CurrentValue = 1,
+   Flag = "S:123123123", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+   game.Players.LocalPlayer.Character.FOVMultipliers.Sprinting.Value = Value
+   end,
+})
+
+local Chat = Forsaken:CreateToggle({
+    Name = "Enable Chat",
+    CurrentValue = false,
+    Flag = "meowCheese",
+    Callback = function(Value)
+        flags.chat = Value
+
+        if Value == true then
+            -- enable chat window
+            game.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
+
+            -- NEW CHAT SYSTEM FIX
+            local tcs = game:GetService("TextChatService")
+
+            if tcs:FindFirstChild("ChatWindowConfiguration") then
+                tcs.ChatWindowConfiguration.Enabled = true  -- show chat window
+            end
+
+            if tcs:FindFirstChild("ChatInputBarConfiguration") then
+                tcs.ChatInputBarConfiguration.Enabled = true -- show text bar
+            end
+
+            -- ensure bubbles enabled (optional)
+            pcall(function()
+                game:GetService("Chat"):SetBubbleChatEnabled(true)
+            end)
+
+        else
+            -- disable chat window entirely
+            game.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
+
+            local tcs = game:GetService("TextChatService")
+
+            if tcs:FindFirstChild("ChatWindowConfiguration") then
+                tcs.ChatWindowConfiguration.Enabled = false
+            end
+
+            if tcs:FindFirstChild("ChatInputBarConfiguration") then
+                tcs.ChatInputBarConfiguration.Enabled = false
+            end
+        end
+    end
+})
+
+local Leaderboard = Forsaken:CreateToggle({
+   Name = "Leaderboard (When match starts)",
+   CurrentValue = false,
+   Flag = "sixSeven", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      flags.lb = Value
+
+      if Value == true then
+         while flags.lb == true do
+            if game.Players.LocalPlayer.Character.Parent.Name ~= "Spectating" then
+               game.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList,true)
+            end
+            task.wait(1)
+         end
+      else
+         game.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList,false)
+      end
+   end,
+})
+
+local v1 = Forsaken:CreateSection("ESP")
+
+local KillerESP_Color_Forsaken = Forsaken:CreateColorPicker({
+    Name = "Killer ESP Color",
+    Color = Color3.fromRGB(255,0,0),
+    Flag = "ColorPicker1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+        
+    end
+})
+
+local KillerESP_Button = Forsaken:CreateToggle({
+   Name = "Killer ESP",
+   CurrentValue = false,
+   Flag = "Toggle312391231", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      flags.KillerESP_Forsaken = Value
+
+      if Value == true then
+         while flags.KillerESP_Forsaken == true do
+            for i,v in pairs(workspace.Players.Killers:GetChildren()) do
+               esp(v,{Color = KillerESP_Color_Forsaken.Color, AddGui = " | "..game.Players:GetPlayerFromCharacter(v).Name}, true)
+            end
+            task.wait(1)
+         end
+      end
+   end,
+})
+
+local SurvESP_Color_Forsaken = Forsaken:CreateColorPicker({
+    Name = "Survivor ESP Color",
+    Color = Color3.fromRGB(0,255,0),
+    Flag = "ColorPicker312312311", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+        
+    end
+})
+
+local SurvESP_Button = Forsaken:CreateToggle({
+   Name = "Survivor ESP",
+   CurrentValue = false,
+   Flag = "PLEASETOUCHMEOMG", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      flags.SurvESP_Forsaken = Value
+
+      if Value == true then
+         while flags.SurvESP_Forsaken == true do
+            for i,v in pairs(workspace.Players.Survivors:GetChildren()) do
+               esp(v,{Color = SurvESP_Color_Forsaken.Color, AddGui = " | "..game.Players:GetPlayerFromCharacter(v).Name}, true)
+            end
+            task.wait(1)
+         end
+      end
+   end,
+})
+
+local GenESP = Forsaken:CreateColorPicker({
+    Name = "Generator ESP Color",
+    Color = Color3.fromRGB(0,255,255),
+    Flag = "gen", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+        
+    end
+})
+
+local FakeGenESP = Forsaken:CreateColorPicker({
+    Name = "Fake Generator ESP Color",
+    Color = Color3.fromRGB(255,255,0),
+    Flag = "fakegen", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+        
+    end
+})
+
+local GenESP_btn = Forsaken:CreateToggle({
+   Name = "Generator ESP",
+   CurrentValue = false,
+   Flag = "genes", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      flags.genESP = Value
+
+      if Value == true then
+         while flags.genESP == true do
+            for i,v in pairs(workspace.Map.Ingame:FindFirstChildOfClass("Model"):GetChildren()) do
+               if v.Name == "Generator" then
+                  esp(v,{Color = GenESP.Color, AddGui = " | "..tostring(v.Progress.Value).."%"}, true)
+                elseif v.Name == "FakeGenerator" then
+                  esp(v,{Color = FakeGenESP.Color, AddGui = " | "..tostring(v.Progress.Value).."%"}, true)
+              end
+            end
+            task.wait(1)
+         end
+      end
+   end,
+})
+
+local DOD = Window:CreateTab("Die of Death", 4483362458) -- Title, Image
+
+local m0 = DOD:CreateSection("Main")
+
+local InfStam_DOD = m0:CreateToggle({
+   Name = "Infinite Stamina",
+   CurrentValue = false,
+   Flag = "SevenSix", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      flags.infStam_dod = Value
+
+      if Value == true then
+         while flags.infStam_dod == true do
+            if game.Players.LocalPlayer.Character:GetAttribute("MaxStamina") then
+               game.Players.LocalPlayer.Character:SetAttribute("MaxStamina", 99999)
+            end
+            task.wait(1)
+         end
+      end
+   end,
+})
+
+local IgnoreSlowness = m0:CreateToggle({
+   Name = "Ignore Slowness Debuffs",
+   CurrentValue = false,
+   Flag = "I:67", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      flags.ignSlow = Value
+
+      if Value == true then
+         while flags.ignSlow == true do
+            if game.Players.LocalPlayer.Character:GetAttribute("WalkSpeedModifier") then
+               game.Players.LocalPlayer.Character:SetAttribute("WalkSpeedModifier", 0)
+            end
+            task.wait(0.1)
+         end
+      end
+   end,
+})
+
+local SprintSpeed = m0:CreateSlider({
+   Name = "SprintSpeed",
+   Range = {0, 50},
+   Increment = 1,
+   Suffix = "Sprint Speed",
+   CurrentValue = 26,
+   Flag = "S:1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      flags.BypassSprintSpeed = Value
+
+      while flags.BypassSprintSpeed == Value do
+         if game.Players.LocalPlayer.Character:GetAttribute("SprintSpeed") then
+            game.Players.LocalPlayer.Character:SetAttribute("SprintSpeed", Value)
+         end
+
+         task.wait(0.5)
+      end
+   end,
+})
+
+local WalkSpeed = m0:CreateSlider({
+   Name = "WalkSpeed",
+   Range = {0, 50},
+   Increment = 1,
+   Suffix = "Walk Speed",
+   CurrentValue = 15,
+   Flag = "S:2", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      flags.BWS = Value
+
+      while flags.BWS == Value do
+         if game.Players.LocalPlayer.Character:GetAttribute("WalkSpeed") then
+            game.Players.LocalPlayer.Character:SetAttribute("WalkSpeed", Value)
+         end
+
+         task.wait(1)
+      end
+   end,
+})
+
+local jp = m0:CreateSlider({
+   Name = "JumpPower",
+   Range = {0, 200},
+   Increment = 25,
+   Suffix = "Jump Power",
+   CurrentValue = 10,
+   Flag = "S:3123", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      flags.BJP = Value
+
+      while flags.BJP == Value do
+         game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
+         task.wait(1)
+      end
+   end,
+})
+
+local d0 = DOD:CreateSection("ESP")
+
+local CivilianESPColor = DOD:CreateColorPicker({
+    Name = "Civilian ESP Color",
+    Color = Color3.fromRGB(0,255,0),
+    Flag = "dod_nig", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+        
+    end
+})
+
+local CivilianESP = DOD:CreateToggle({
+   Name = "Civilian ESP",
+   CurrentValue = false,
+   Flag = "dodWillTouchMe", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      flags.dodCiv = Value
+
+      if Value == true then
+         while flags.dodCiv == true do
+            for i,v in pairs(workspace.GameAssets.Teams.Survivor:GetChildren()) do
+               esp(v,{Color = CivilianESPColor.Color}, true)
+            end
+            task.wait(1)
+         end
+      end
+   end,
+})
+
+local PredESPColor = DOD:CreateColorPicker({
+    Name = "Killer ESP Color",
+    Color = Color3.fromRGB(255,0,0),
+    Flag = "predatorDontTouchMe", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+        
+    end
+})
+
+local PredESP = DOD:CreateToggle({
+   Name = "Killer ESP",
+   CurrentValue = false,
+   Flag = "ITouchKids", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      flags.dodKiller = Value
+
+      if Value == true then
+         while flags.dodKiller == true do
+            for i,v in pairs(workspace.GameAssets.Teams.Killer:GetChildren()) do
+               esp(v,{Color = PredESPColor.Color, AddGui = " | "..game.Players:GetPlayerFromCharacter(v).Stats.EquippedKiller.Value}, true)
+            end
+            task.wait(1)
+         end
+      end
+   end,
+})
+
+local a0 = DOD:CreateSection("Abilities")
+
+--game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility"):InvokeServer(unpack(args))
+
+local DOD_ABILITIES = {
+    "Adrenaline",
+    "Caretaker",
+    "Cloak",
+    "Block",
+    "Dash",
+    "BonusPad",
+    "Hotdog",
+    "Revolver",
+    "Taunt",
+    "Banana",
+      "Punch",
+      "Carepad"
+}
+
+local UseAbility_DOD = game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility")
+
+for i, v in ipairs(DOD_ABILITIES) do
+    a0:CreateButton({
+        Name = "Use Ability: " .. v,
+        Callback = function()
+            UseAbility_DOD:InvokeServer(v)
+        end
+    })
+end
+
+local Chasing = Window:CreateTab("Chasing", 4483362458) -- Title, Image
+
+local Section_C = Chasing:CreateSection("Main")
+
+local WalkSpeed = Chasing:CreateSlider({
+   Name = "WalkSpeed",
+   Range = {0, 50},
+   Increment = 1,
+   Suffix = "Walk Speed",
+   CurrentValue = 10,
+   Flag = "S:3", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      flags.BWS_C = Value
+
+      while flags.BWS_C == Value do
+         if game.Players.LocalPlayer.Character:GetAttribute("Walkspeed") then
+            game.Players.LocalPlayer.Character:SetAttribute("Walkspeed", Value)
+         end
+
+         task.wait(0.1)
+      end
+   end,
+})
+
+local AntiRagdoll_Chasing = Chasing:CreateToggle({
+   Name = "Anti Ragdoll",
+   CurrentValue = false,
+   Flag = "I:1Neighbour", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      flags.AntiRagdoll_C = Value
+
+      if Value == true then
+         while flags.AntiRagdoll_C == true do
+            if game.Players.LocalPlayer.Character:GetAttribute("Ragdolled") then
+               game.Players.LocalPlayer.Character:SetAttribute("Ragdolled", false)
+            end
+            task.wait(0.1)
+         end
+      end
+   end,
+})
+
+local Section_C_E = Chasing:CreateSection("ESP")
+
+local ChasingESPKiller = Chasing:CreateColorPicker({
+    Name = "Killer ESP Color",
+    Color = Color3.fromRGB(255,0,0),
+    Flag = "ohShitMonkey", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+        
+    end
+})
+
+local esp_c = Chasing:CreateToggle({
+   Name = "Killer ESP",
+   CurrentValue = false,
+   Flag = "badqwdqq", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      flags.plrESP_C = Value
+
+      if Value == true then
+            while flags.plrESP_C == true do
+               for i,v in pairs(workspace.Characters:GetChildren()) do
+                  if v:FindFirstChild("_KillerModel") then
+                     esp(v,{Color = ChasingESPKiller.Color}, true)
+                  end
+               end
+               task.wait(1)
+            end
+      end
+   end,
+})
+
+local ChasingESPSurv = Chasing:CreateColorPicker({
+    Name = "Survivor ESP Color",
+    Color = Color3.fromRGB(255,0,0),
+    Flag = "ohShitMonkey2", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+        
+    end
+})
+
+local esp_ch = Chasing:CreateToggle({
+   Name = "Survivor ESP",
+   CurrentValue = false,
+   Flag = "monkeyblackness", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      flags.plrESP_C = Value
+
+      if Value == true then
+            while flags.plrESP_C == true do
+               for i,v in pairs(workspace.Characters:GetChildren()) do
+                  if not v:FindFirstChild("_KillerModel") then
+                     esp(v,{Color = ChasingESPSurv.Color}, true)
+                  end
+               end
+               task.wait(1)
+            end
+      end
+   end,
+})
+
+local LoriNightmare = Window:CreateTab("Lori's Nightmare", 4483362458) -- Title, Image
+
+LoriNightmare:CreateSection("Main")
+
+LoriNightmare:CreateToggle({
+  Name = "Self-Revive upon Knocking",
+  CurrentValue = false,
+  Flag = "jdpoqjdpoqjdpoqwjdwq",
+  Callback = function(Value)
+    flags.SelfRevive = Value
+
+    if Value == true then
+      while flags.SelfRevive == true do
+        game:GetService("ReplicatedStorage"):WaitForChild("Util"):WaitForChild("Net"):WaitForChild("RE/ActivateCampingProtection"):FireServer()
+        task.wait(0.75)
+      end
+    end
+  end,
+})
+
+LoriNightmare:CreateToggle({
+  Name = "Auto VHS Completion",
+  CurrentValue = false,
+  Flag = "ssss",
+  Callback = function(Value)
+    flags.AutoVHS = Value
+
+    if Value == true then
+      while flags.AutoVHS == true do
+        if #game.Players.LocalPlayer.PlayerGui.Minigame.Frame:GetChildren() > 0 then
+          for i,v in pairs(workspace.Map:GetDescendants()) do
+            if v:IsA("Model") and v.Name == "VHStv" then
+              game:GetService("ReplicatedStorage"):WaitForChild("Util"):WaitForChild("Net"):WaitForChild("RE/MachineMinigameClicked"):FireServer(v)
+            end
+          end
+        end
+        task.wait(0.25)
+      end
+     end
+    end
+  end,
+})
+
+
+LoriNightmare:CreateSection("ESP")
+
+local LNKillerColor = LoriNightmare:CreateColorPicker({
+    Name = "Killer ESP Color",
+    Color = Color3.fromRGB(255,0,0),
+    Flag = "sukaBlyat", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+        
+    end
+})
+
+local esp_c = LoriNightmare:CreateToggle({
+   Name = "Killer ESP",
+   CurrentValue = false,
+   Flag = "SukaBlyaaddd", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      flags.plrESP_ln = Value
+
+      if Value == true then
+            while flags.plrESP_ln == true do
+               for i,v in pairs(game.Players:GetPlayers()) do
+                  if v.Character:FindFirstChild("Highlight") then v.Character.Highlight:Destroy() end
+                  if v.Character:GetAttribute("Monster") then
+                     esp(v.Color,{Color = LNKillerColor.Color}, true)
+                  end
+               end
+               task.wait(1)
+            end
+      end
+   end,
+})
+
+local LNSurvColor = LoriNightmare:CreateColorPicker({
+    Name = "Survivor ESP Color",
+    Color = Color3.fromRGB(0,255,0),
+    Flag = "alrightDaddy", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+        
+    end
+})
+
+local esp_c = LoriNightmare:CreateToggle({
+   Name = "Survivor ESP",
+   CurrentValue = false,
+   Flag = "fuckMeDaddyOhYes", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      flags.plrESP_lnSurv = Value
+
+      if Value == true then
+            while flags.plrESP_lnSurv == true do
+               for i,v in pairs(game.Players:GetPlayers()) do
+                  if not v.Character:GetAttribute("Monster") then
+                      if v.Character:FindFirstChild("Highlight") then v.Character.Highlight:Destroy() end
+                     esp(v.Color,{Color = LNSurvColor.Color}, true)
+                  end
+               end
+               task.wait(1)
+            end
+      end
+   end,
+})
+
+print("Success!")
+
+Rayfield:Notify({
+   Title = "Exploits loaded!",
+   Content = "Yay",
+   Duration = 6.5,
+   Image = 4483362458,
+})
